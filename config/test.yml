@@ -1,0 +1,10 @@
+db:
+  host: db
+  name: prayer_praise_app_test
+  user: postgresdev
+  password: postgresdev
+api:
+  port: 9001
+  cors: true
+token:
+  secret: foobar

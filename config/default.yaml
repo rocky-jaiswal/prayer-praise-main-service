@@ -1,0 +1,10 @@
+db:
+  host: db
+  name: prayer_praise_app_dev
+  user: postgresdev
+  password: postgresdev
+api:
+  port: 3001
+  cors: true
+token:
+  secret: das34rtji89sasy676768ghjttr378ikiy9ufg4dasdam4l30434kmr34r8dgfgdtj54n4334gtr5
