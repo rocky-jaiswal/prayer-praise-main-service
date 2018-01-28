@@ -3,3 +3,5 @@ token:
   secret: TOKEN_SECRET
 db:
   password: DB_PASSWORD
+api:
+  port: PORT
