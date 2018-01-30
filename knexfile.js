@@ -5,12 +5,7 @@ const Config = require('config');
 const dbConfiguration = {
   client: 'postgresql',
   useNullAsDefault: true,
-  connection: {
-    host:     Config.get('db.host'),
-    database: Config.get('db.name'),
-    user:     Config.get('db.user'),
-    password: Config.get('db.password')
-  },
+  connection: Config.get('db.connString'),
   pool: {
     min: 2,
     max: 10

@@ -2,6 +2,6 @@ auth0_url: AUTH0_AUDIENCE
 token:
   secret: TOKEN_SECRET
 db:
-  password: DB_PASSWORD
+  connString: DATABASE_URL
 api:
   port: PORT

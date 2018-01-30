@@ -1,8 +1,5 @@
 db:
-  host: db
-  name: prayer_praise_app_dev
-  user: postgresdev
-  password: postgresdev
+  connString: postgresql://postgresdev:postgresdev@db/prayer_praise_app_dev
 api:
   port: 3001
   cors: true
