@@ -22,13 +22,13 @@ describe('messages controller', () => {
 
     stubs.push(Sinon.stub(MessagesRepo, 'getMessagesSharedToAll').callsFake(() => Promise.resolve(messages)));
     stubs.push(Sinon.stub(UsersRepo, 'findAll').callsFake(() => Promise.resolve([user])));
-    Server.on('start', done);
+    Server.events.on('start', done);
   });
 
   afterAll((done) => {
 
     stubs.forEach((s) => s.restore());
-    Server.on('stop', () => {
+    Server.events.on('stop', () => {
 
       DB.destroy()
         .then(() => done());
@@ -40,17 +40,14 @@ describe('messages controller', () => {
 
     const options = {
       method: 'GET',
-      url: '/sharedmessages'
+      url: '/sharedMessages'
     };
 
-    test('fetch all messages which are shared', (done) => {
+    test('fetch all messages which are shared', async () => {
 
-      Server.inject(options, (response) => {
-
-        expect(response.statusCode).toBe(200);
-        expect(response.result).toEqual(messages);
-        done();
-      });
+      const response = await Server.inject(options);
+      expect(response.statusCode).toBe(200);
+      expect(response.result).toEqual(messages);
     });
   });
 

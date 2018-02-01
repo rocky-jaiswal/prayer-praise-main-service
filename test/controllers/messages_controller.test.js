@@ -25,15 +25,14 @@ describe('messages controller', () => {
     stubs.push(Sinon.stub(MessagesRepo, 'getAllUserMessages').callsFake(() => Promise.resolve(userMessages)));
     stubs.push(Sinon.stub(MessagesRepo, 'getAllSharedMessages').callsFake(() => Promise.resolve(sharedMessages)));
     stubs.push(Sinon.stub(MessagesRepo, 'getMessage').callsFake(() => Promise.resolve(userMessages[0])));
-    stubs.push(Sinon.stub(MessagesRepo, 'getMessageForUser').callsFake(() => Promise.resolve(userMessages[0])));
     stubs.push(Sinon.stub(UsersRepo, 'findUserBy').callsFake(() => Promise.resolve(user)));
-    Server.on('start', done);
+    Server.events.on('start', done);
   });
 
   afterAll((done) => {
 
     stubs.forEach((s) => s.restore());
-    Server.on('stop', () => {
+    Server.events.on('stop', () => {
 
       DB.destroy()
         .then(() => done());
@@ -49,14 +48,11 @@ describe('messages controller', () => {
       headers: { 'Authorization': Token.generate(userId) }
     };
 
-    test('fetch all messages for a user', (done) => {
+    test('fetch all messages for a user', async () => {
 
-      Server.inject(options, (response) => {
-
-        expect(response.statusCode).toBe(200);
-        expect(response.result).toEqual(userMessages.concat(sharedMessages));
-        done();
-      });
+      const response = await Server.inject(options);
+      expect(response.statusCode).toBe(200);
+      expect(response.result).toEqual(userMessages.concat(sharedMessages));
     });
   });
 
@@ -68,14 +64,11 @@ describe('messages controller', () => {
       headers: { 'Authorization': Token.generate(userId) }
     };
 
-    test('fetch a specific messages for a user', (done) => {
+    test('fetch a specific messages for a user', async () => {
 
-      Server.inject(options, (response) => {
-
-        expect(response.statusCode).toBe(200);
-        expect(response.result).toBe(userMessages[0]);
-        done();
-      });
+      const response = await Server.inject(options);
+      expect(response.statusCode).toBe(200);
+      expect(response.result).toBe(userMessages[0]);
     });
   });
 

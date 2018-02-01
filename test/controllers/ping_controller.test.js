@@ -12,12 +12,12 @@ describe('ping controller', () => {
 
   beforeAll((done) => {
 
-    Server.on('start', done);
+    Server.events.on('start', done);
   });
 
   afterAll((done) => {
 
-    Server.on('stop', () => {
+    Server.events.on('stop', () => {
 
       DB.destroy()
         .then(() => done());
@@ -25,14 +25,11 @@ describe('ping controller', () => {
     Server.stop();
   });
 
-  test('responds with success for ping', (done) => {
+  test('responds with success for ping', async () => {
 
-    Server.inject(options, (response) => {
-
-      expect(response.statusCode).toBe(200);
-      expect(response.result).toBeInstanceOf(Object);
-      done();
-    });
+    const response = await Server.inject(options);
+    expect(response.statusCode).toBe(200);
+    expect(response.result).toBeInstanceOf(Object);
   });
 
 });
