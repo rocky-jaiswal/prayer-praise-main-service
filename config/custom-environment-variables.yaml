@@ -1,4 +1,4 @@
-auth0_url: AUTH0_AUDIENCE
+auth0_url: REACT_APP_AUTH0_DOMAIN
 token:
   secret: TOKEN_SECRET
 db:
