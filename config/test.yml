@@ -1,5 +1,5 @@
 db:
-  connString: postgresql://postgresdev:postgresdev@db/prayer_praise_app_test
+  connString: postgresql://postgresdev:postgresdev@localhost:5432/prayer_praise_app_test
 api:
   port: 9001
   cors: true
