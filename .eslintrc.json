@@ -2,8 +2,10 @@
     "env": {
         "browser": false,
         "commonjs": true,
-        "es6": true,
         "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 8
     },
     "extends": "eslint-config-hapi",
     "rules": {
