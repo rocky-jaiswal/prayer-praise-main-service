@@ -52,7 +52,7 @@ describe('messages service', () => {
 
     service.getMessagesSharedToAll(userId).then((msgs) => {
 
-      expect(msgs).toEqual(userMessages.concat(sharedMessages));
+      expect(msgs.content).toEqual(userMessages.concat(sharedMessages));
       done();
     });
   });
