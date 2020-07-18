@@ -6,27 +6,31 @@
   "author": "Rocky Jaiswal",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.17.0",
-    "bluebird": "^3.5.0",
-    "boom": "^7.1.1",
-    "config": "^1.25.1",
-    "hapi": "^17.1.1",
-    "hapi-auth-jwt2": "rocky-jaiswal/hapi-auth-jwt2",
-    "hapi-pino": "^3.3.1",
-    "js-yaml": "^3.8.2",
-    "jsonwebtoken": "^8.1.0",
-    "knex": "^0.14.0",
-    "lodash": "^4.17.4",
-    "pg": "^7.4.1",
-    "serialize-javascript": "^1.4.0"
+    "axios": "^0.19.0",
+    "bluebird": "^3.7.0",
+    "boom": "^7.3.0",
+    "config": "^3.3.0",
+    "hapi": "^18.1.0",
+    "hapi-auth-jwt2": "^10.1.0",
+    "hapi-pino": "^8.0.1",
+    "js-yaml": "^3.14.0",
+    "jsonwebtoken": "^8.5.0",
+    "knex": "^0.21.0",
+    "lodash": "^4.17.0",
+    "pg": "^8.3.0",
+    "serialize-javascript": "^4.0.0"
   },
   "devDependencies": {
-    "eslint": "^4.2.0",
-    "eslint-config-hapi": "^11.1.0",
-    "eslint-plugin-hapi": "^4.1.0",
-    "jest": "^21.0.0",
-    "nodemon": "^1.12.0",
-    "sinon": "^4.1.0"
+    "eslint": "^7.4.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^26.0.0",
+    "nodemon": "^2.0.0",
+    "prettier": "^2.0.5",
+    "sinon": "^9.0.0"
   },
   "scripts": {
     "create-migration": "./node_modules/.bin/knex migrate:make",
@@ -36,12 +40,19 @@
     "jest": "./node_modules/.bin/jest -i",
     "jest:watch": "npm run jest -- --watch",
     "test": "NODE_ENV=test npm run migrate-latest && NODE_ENV=test npm run seed-data && NODE_ENV=test npm run jest",
-    "start": "NODE_ENV=production node index.js"
+    "start": "NODE_ENV=production node index.js",
+    "lint": "eslint 'lib/**/*'",
+    "prettier": "prettier --write 'lib/**/*'"
   },
   "jest": {
     "browser": false,
     "bail": true,
     "verbose": true,
     "collectCoverage": true
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
   }
 }
