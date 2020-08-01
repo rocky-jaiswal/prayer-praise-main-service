@@ -1,0 +1,36 @@
+version: '3'
+services:
+  db:
+    networks:
+      - appnet
+    build:
+      context: ./postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data:z
+  main-api:
+    networks:
+      - appnet
+    build:
+      context: ./
+      dockerfile: Dockerfile-dev
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./:/app:z
+    environment:
+      REACT_APP_AUTH0_DOMAIN: '${REACT_APP_AUTH0_DOMAIN}'
+      REACT_APP_AUTH0_AUDIENCE: '${REACT_APP_AUTH0_AUDIENCE}'
+      NODE_ENV: development
+    command: 'npx nodemon index.js'
+    depends_on:
+      - db
+networks:
+  appnet:
+    driver: 'bridge'
+volumes:
+  data:
+    driver: 'local'

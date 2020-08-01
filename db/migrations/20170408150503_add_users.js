@@ -3,7 +3,7 @@
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('users', (table) => {
     table.increments('id').primary()
-    table.text('name').unique()
+    table.text('name').unique().notNull()
     table.text('role')
     table.text('picture')
 
