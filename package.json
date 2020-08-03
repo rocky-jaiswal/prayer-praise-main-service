@@ -45,7 +45,6 @@
     "prettier": "prettier --write 'lib/**/*'"
   },
   "jest": {
-    "browser": false,
     "bail": true,
     "verbose": true,
     "collectCoverage": true

@@ -1,35 +1,29 @@
-'use strict';
+'use strict'
 
-const Server = require('../../');
-const DB     = require('../../lib/repositories/db');
+const serverInit = require('../../server')
+const db = require('../../lib/repositories/db')
 
 describe('ping controller', () => {
+  let configuredServer
 
   const options = {
-    method: 'GET',
+    method: 'get',
     url: '/ping'
-  };
+  }
 
-  beforeAll((done) => {
+  beforeEach(async () => {
+    configuredServer = await serverInit()
+    await configuredServer.initialize()
+  })
 
-    Server.events.on('start', done);
-  });
-
-  afterAll((done) => {
-
-    Server.events.on('stop', () => {
-
-      DB.destroy()
-        .then(() => done());
-    });
-    Server.stop();
-  });
+  afterEach(async () => {
+    await configuredServer.stop()
+    await db.destroy()
+  })
 
   test('responds with success for ping', async () => {
-
-    const response = await Server.inject(options);
-    expect(response.statusCode).toBe(200);
-    expect(response.result).toBeInstanceOf(Object);
-  });
-
-});
+    const response = await configuredServer.inject(options)
+    expect(response.statusCode).toBe(200)
+    expect(response.result).toBeInstanceOf(Object)
+  })
+})
