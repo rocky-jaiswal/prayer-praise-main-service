@@ -1,90 +1,67 @@
 'use strict'
 
-const Promise = require('bluebird')
-const Sinon = require('sinon')
-
-const MessagesRepo = require('../../lib/repositories/messages_repo')
-const UsersRepo = require('../../lib/repositories/users_repo')
 const MessagesService = require('../../lib/services/messages_service')
-const DB = require('../../lib/repositories/db')
+const db = require('../../lib/repositories/db')
+const usersRepo = require('../../lib/repositories/users_repo')
+const messagesRepo = require('../../lib/repositories/messages_repo')
 
-describe('messages service', () => {
-  const userId = 42
-  const normalUserId = 43
-  const user = { id: userId, name: 'foo', role: 'PRAYER_TEAM' }
-  const normalUser = { id: normalUserId, name: 'bar', role: '' }
+describe('users service', () => {
+  const messagesService = new MessagesService(messagesRepo, usersRepo)
+  let user1
+  let admin
 
-  const messageId = 101
-  const userMessages = [{ id: messageId, user_id: userId }]
-  const sharedMessages = [{ id: 102, user_id: normalUserId }]
-
-  const stubs = []
-
-  const service = new MessagesService(MessagesRepo, UsersRepo)
-
-  beforeAll(() => {
-    stubs.push(
-      Sinon.stub(MessagesRepo, 'getAllUserMessages').callsFake((id) =>
-        Promise.resolve(id === userId ? userMessages : sharedMessages)
-      )
-    )
-    stubs.push(
-      Sinon.stub(MessagesRepo, 'getAllSharedMessages').callsFake(() =>
-        Promise.resolve(sharedMessages)
-      )
-    )
-    stubs.push(
-      Sinon.stub(MessagesRepo, 'getMessage').callsFake(() =>
-        Promise.resolve(userMessages[0])
-      )
-    )
-    stubs.push(
-      Sinon.stub(MessagesRepo, 'getMessagesSharedToAll').callsFake(() =>
-        Promise.resolve(userMessages.concat(sharedMessages))
-      )
-    )
-    stubs.push(
-      Sinon.stub(UsersRepo, 'findAll').callsFake(() =>
-        Promise.resolve([user, normalUser])
-      )
-    )
-    stubs.push(
-      Sinon.stub(UsersRepo, 'findUserBy').callsFake((obj) =>
-        Promise.resolve(obj.id === userId ? user : normalUser)
-      )
-    )
+  afterAll(async () => {
+    await db.destroy()
   })
 
-  afterAll((done) => {
-    stubs.forEach((s) => s.restore())
-    DB.destroy().then(done)
+  afterEach(async () => {
+    await db('messages').truncate()
+    await db('users').whereNot({ role: 'ANONYMOUS_USER' }).del()
   })
 
-  test('get a message', (done) => {
-    service.getMessage(messageId).then((msg) => {
-      expect(msg.user_id).toEqual(userId)
-      done()
-    })
+  beforeEach(async () => {
+    await db('users').insert({ name: 'admin', role: 'PRAYER_TEAM' })
+    await db('users').insert({ name: 'user1', role: 'USER' })
+    admin = await db('users').where({ name: 'admin' }).first()
+    user1 = await db('users').where({ name: 'user1' }).first()
+
+    const message1 = {
+      message_type: 'PRAISE',
+      message_text: 'Test 1',
+      shared_status: 'SHARED_WITH_EVERYONE',
+      user_id: user1.id
+    }
+    await db('messages').insert(message1)
+
+    const message2 = {
+      message_type: 'PRAISE',
+      message_text: 'Test 2',
+      shared_status: 'SHARED_WITH_EVERYONE',
+      user_id: admin.id
+    }
+    await db('messages').insert(message2)
+
+    const message3 = {
+      message_type: 'PRAISE',
+      message_text: 'Test 2',
+      shared_status: 'SHARED_WITH_PRAYER_TEAM',
+      user_id: user1.id
+    }
+    await db('messages').insert(message3)
   })
 
-  test('gets all shared messages', (done) => {
-    service.getMessagesSharedToAll(userId).then((msgs) => {
-      expect(msgs.content).toEqual(userMessages.concat(sharedMessages))
-      done()
-    })
+  test('getMessagesSharedToAll', async () => {
+    const messages = await messagesService.getMessagesSharedToAll(1)
+    expect(messages.content.length).toEqual(2)
   })
 
-  test('prayer team can see all shared messages', (done) => {
-    service.getAllUserMessages(userId).then((msgs) => {
-      expect(msgs).toEqual(userMessages.concat(sharedMessages))
-      done()
-    })
+  test('getAllUserMessages', async () => {
+    const messages = await messagesService.getAllUserMessages(user1.id)
+    expect(messages.length).toEqual(2)
   })
 
-  test('normal user can only see their messages', (done) => {
-    service.getAllUserMessages(normalUserId).then((msgs) => {
-      expect(msgs).toEqual(sharedMessages)
-      done()
-    })
+  test('getMessagesSharedToAll - admin', async () => {
+    const messages = await messagesService.getAllUserMessages(admin.id)
+    expect(messages.length).toEqual(3)
   })
 })

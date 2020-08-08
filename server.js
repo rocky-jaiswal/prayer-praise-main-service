@@ -1,6 +1,6 @@
 'use strict'
 
-const Hapi = require('hapi')
+const Hapi = require('@hapi/hapi')
 const config = require('config')
 
 const HapiAuthJWT = require('hapi-auth-jwt2')
