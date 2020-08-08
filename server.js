@@ -18,7 +18,10 @@ const server = new Hapi.Server({
 const serverInit = async () => {
   // Register plugins
   await server.register(HapiAuthJWT)
-  await server.register(HapiPino)
+  await server.register({
+    plugin: HapiPino,
+    options: { redact: ['req.headers.authorization'] }
+  })
 
   // Auth setup
   server.auth.strategy('jwt', 'jwt', {
