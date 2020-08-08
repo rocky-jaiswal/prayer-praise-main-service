@@ -2,7 +2,7 @@
 
 exports.up = (knex, Promise) => {
   return knex.schema.table('messages', (table) => {
-    table.bigInteger('user_id')
+    table.bigInteger('user_id').notNull()
     table.foreign('user_id').references('users.id')
   })
 }

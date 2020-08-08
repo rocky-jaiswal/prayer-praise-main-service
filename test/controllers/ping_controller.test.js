@@ -11,12 +11,12 @@ describe('ping controller', () => {
     url: '/ping'
   }
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     configuredServer = await serverInit()
     await configuredServer.initialize()
   })
 
-  afterEach(async () => {
+  afterAll(async () => {
     await configuredServer.stop()
     await db.destroy()
   })
