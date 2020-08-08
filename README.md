@@ -18,7 +18,7 @@ HapiJS + ReactJS app for Berlin Church to share prayers and praise cards with th
 4. DB migrations can be done with - `docker-compose exec main-api npm run migrate-latest`
 5. DB can be seeded with some data using - `docker-compose exec main-api npm run seed-data`
 6. Run `yarn start` in web project to start it separately
-7. Run tests as usual (individually in web and api project using `npm run test`), since the test DB also runs inside docker / docker-compose, please run _docker-compose up_ command before running the tests (or manually setup a local PostgreSQL test DB).
+7. Run tests with `docker-compose exec main-api yarn test`, since the test DB also runs inside docker / docker-compose, please run _docker-compose up_ command before running the tests.
 
 ## Notes
 
