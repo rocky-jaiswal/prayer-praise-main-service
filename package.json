@@ -6,10 +6,11 @@
   "author": "Rocky Jaiswal",
   "license": "MIT",
   "dependencies": {
+    "@hapi/boom": "^9.0.0",
+    "@hapi/hapi": "^19.1.0",
+    "@hapi/joi": "^17.1.1",
     "axios": "^0.19.0",
     "bluebird": "^3.7.0",
-    "@hapi/hapi": "^19.1.0",
-    "@hapi/boom": "^9.0.0",
     "config": "^3.3.0",
     "hapi-auth-jwt2": "^10.1.0",
     "hapi-pino": "^8.0.1",

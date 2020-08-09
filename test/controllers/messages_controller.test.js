@@ -22,6 +22,55 @@ describe('messages controller', () => {
     await db('users').whereNot({ role: 'ANONYMOUS_USER' }).del()
   })
 
+  describe('validation', () => {
+    test('bad payload - no type', async () => {
+      const options = {
+        method: 'post',
+        url: '/messages',
+        payload: {
+          message: {
+            messageType: '',
+            messageText: 'Test 1',
+            sharedStatus: 'SHARED_WITH_EVERYONE'
+          }
+        }
+      }
+      const response = await configuredServer.inject(options)
+      expect(response.statusCode).toBe(400)
+    })
+
+    test('bad payload - no shared status', async () => {
+      const options = {
+        method: 'post',
+        url: '/messages',
+        payload: {
+          message: {
+            messageType: 'PRAYER',
+            messageText: 'Test 1'
+          }
+        }
+      }
+      const response = await configuredServer.inject(options)
+      expect(response.statusCode).toBe(400)
+    })
+
+    test('bad payload - no text', async () => {
+      const options = {
+        method: 'post',
+        url: '/messages',
+        payload: {
+          message: {
+            messageType: 'PRAYER',
+            messageText: null,
+            sharedStatus: 'SHARED_WITH_EVERYONE'
+          }
+        }
+      }
+      const response = await configuredServer.inject(options)
+      expect(response.statusCode).toBe(400)
+    })
+  })
+
   describe('creation', () => {
     const options = {
       method: 'post',
