@@ -282,7 +282,6 @@ describe('messages controller', () => {
         headers: { Authorization: token.generate(user.id) },
         payload: {
           message: {
-            id: dbMessage.id,
             messageText: 'Test 2',
             sharedStatus: 'SHARED_WITH_EVERYONE'
           }
@@ -316,7 +315,6 @@ describe('messages controller', () => {
         headers: { Authorization: token.generate(user2.id) },
         payload: {
           message: {
-            id: dbMessage.id,
             messageText: 'Test 2',
             sharedStatus: 'SHARED_WITH_EVERYONE'
           }
@@ -429,7 +427,6 @@ describe('messages controller', () => {
         headers: { Authorization: token.generate(user1.id) },
         payload: {
           message: {
-            id: dbMessage.id,
             messageText: 'Test 2',
             sharedStatus: 'SHARED_WITH_EVERYONE'
           }
