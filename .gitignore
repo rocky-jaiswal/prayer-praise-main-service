@@ -1,3 +1,5 @@
 /node_modules/*
 /coverage/*
 postgres/data/*
+config/staging.yaml
+config/production.yaml
