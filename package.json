@@ -41,7 +41,8 @@
     "jest:watch": "npm run jest -- --watch",
     "test": "NODE_ENV=test npm run migrate-latest && NODE_ENV=test npm run seed-data && NODE_ENV=test npm run jest",
     "lint": "eslint 'lib/**/*'",
-    "prettier": "prettier --write 'lib/**/*'"
+    "prettier": "prettier --write 'lib/**/*'",
+    "tag": "git rev-parse HEAD > sha.txt"
   },
   "jest": {
     "bail": true,

@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
+      - run: yarn tag
       - run: 'echo "$STAGING_ENV" > config/default.yaml'
         shell: bash
         env:
