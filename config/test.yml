@@ -5,3 +5,5 @@ api:
   cors: true
 token:
   secret: foobar
+auth0:
+  url: https://rockyj.eu.auth0.com

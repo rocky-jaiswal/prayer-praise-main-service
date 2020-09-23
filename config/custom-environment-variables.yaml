@@ -1,7 +1,4 @@
-auth0_url: REACT_APP_AUTH0_DOMAIN
-token:
-  secret: TOKEN_SECRET
 db:
   connString: DATABASE_URL
-api:
-  port: PORT
+token:
+  secret: TOKEN_SECRET

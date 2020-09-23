@@ -1,6 +1,5 @@
 FROM node:12-alpine
 
-RUN mkdir -p /opt/db
 RUN mkdir /app
 WORKDIR /app
 
@@ -12,7 +11,7 @@ RUN yarn install --production
 
 ENV NODE_ENV production
 
-EXPOSE 3001
+EXPOSE 8090
 
 CMD node /app/index.js
 
