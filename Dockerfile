@@ -1,17 +1,20 @@
 FROM node:12-alpine
 
 RUN mkdir /app
-WORKDIR /app
 
 COPY ./harden.sh /usr/local/bin/harden.sh
 RUN /usr/local/bin/harden.sh
 
 ADD . /app
-RUN yarn install --production
+
+WORKDIR /app
+
+RUN rm -rf /app/test
+RUN rm -rf /app/postgres
 
 ENV NODE_ENV production
+RUN yarn install --production
 
 EXPOSE 8090
 
-CMD node /app/index.js
-
+CMD node index.js

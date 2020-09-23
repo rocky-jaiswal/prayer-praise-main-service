@@ -24,3 +24,27 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
+      - run: 'echo "$STAGING_ENV" > config/default.yaml'
+        shell: bash
+        env:
+          STAGING_ENV: ${{ secrets.STAGING_ENV }}
+      - name: Remove old build
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: 'rockyj@praywithus.site'
+          privateKey: ${{ secrets.SERVER_SSH_KEY }}
+          command: rm -rf /home/rockyj/app/api/build/*
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SOURCE: '.'
+          REMOTE_HOST: praywithus.site
+          REMOTE_USER: rockyj
+          TARGET: /home/rockyj/app/api/build
+      - name: Restart container
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: 'rockyj@praywithus.site'
+          privateKey: ${{ secrets.SERVER_SSH_KEY }}
+          command: /home/rockyj/app/restart-service.sh api

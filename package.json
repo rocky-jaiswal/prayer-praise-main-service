@@ -40,7 +40,6 @@
     "jest": "./node_modules/.bin/jest -i",
     "jest:watch": "npm run jest -- --watch",
     "test": "NODE_ENV=test npm run migrate-latest && NODE_ENV=test npm run seed-data && NODE_ENV=test npm run jest",
-    "start": "NODE_ENV=production node index.js",
     "lint": "eslint 'lib/**/*'",
     "prettier": "prettier --write 'lib/**/*'"
   },
