@@ -24,7 +24,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn sha
-      - run: 'echo "$STAGING_ENV" > config/default.yaml'
+      - run: 'rm -rf .git'
+        shell: bash
+      - run: 'echo "$STAGING_ENV" > config/production.yaml'
         shell: bash
         env:
           STAGING_ENV: ${{ secrets.STAGING_ENV }}
