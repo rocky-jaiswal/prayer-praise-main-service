@@ -2,10 +2,12 @@ version: 2
 
 workflows:
   version: 2
-  build:
+  build_and_deploy:
     jobs:
       - test
       - deploy
+          requires:
+            - test
 
 jobs:
   test:
@@ -42,6 +44,7 @@ jobs:
     docker:
       - image: circleci/node:12
     steps:
+      - checkout
       - run: yarn sha
       - run: 'rm -rf .git'
       - run: 'rm -rf node_modules'
