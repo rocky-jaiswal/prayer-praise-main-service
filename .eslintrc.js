@@ -9,6 +9,6 @@ module.exports = {
     ecmaVersion: 11
   },
   rules: {
-    'space-before-function-paren': false // because of prettier
+    'space-before-function-paren': 0 // because of prettier
   }
 }
