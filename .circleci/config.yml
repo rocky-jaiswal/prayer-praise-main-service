@@ -37,3 +37,4 @@ jobs:
           key: v1-deps-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
+      - run: "ssh rockyj@praywithus.site 'cd /home/rockyj/app && ls -l'"

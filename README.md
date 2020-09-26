@@ -24,10 +24,10 @@ HapiJS + ReactJS app for Berlin Church to share prayers and praise cards with th
 
 ## Notes
 
-- The application runs as a ReactJS (+ TypeScript) web application, with a NodeJS (HapiJS) REST API backend. The data is persisted in PostgreSQL / SQLite RDBMS.
+- The application runs as a ReactJS (+ TypeScript) web application, with a NodeJS (HapiJS) REST API backend. The data is persisted in PostgreSQL RDBMS.
 - The React web application is written in TypeScript for some type safety and the backend is pure NodeJS 12.x.x (for native async await support).
 
 ## Important
 
 - The application uses Auth0 for user login, the Auth0 token is not checked into the git repo, please create your own Auth0 client for testing / local installation (it's very simple)
-- Copy and change the .env.sample file to `.env` and update the values for Auth0 there
+- Copy and change the `auth0.url` in `.config/default.yaml` and update the values for Auth0 there
