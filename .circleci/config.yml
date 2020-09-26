@@ -62,5 +62,4 @@ jobs:
       - run: "ssh rockyj@praywithus.site 'rm -rf /home/rockyj/app/api/build/*'"
       - run: "ssh rockyj@praywithus.site 'ls -l /home/rockyj/app/api/build/'"
       - run: 'scp -r /home/circleci/project rockyj@praywithus.site:/home/rockyj/app/api/build/'
-      - run: "ssh rockyj@praywithus.site 'ls -l /home/rockyj/app/api/build/'"
       - run: "ssh rockyj@praywithus.site '/home/rockyj/app/restart-service.sh api'"
