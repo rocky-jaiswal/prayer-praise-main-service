@@ -4,6 +4,8 @@ HapiJS + ReactJS app for Berlin Church to share prayers and praise cards with th
 
 [![rocky-jaiswal](https://circleci.com/gh/rocky-jaiswal/prayer-praise-main-service.svg?style=svg)](https://app.circleci.com/pipelines/github/rocky-jaiswal/prayer-praise-main-service)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/704c274baaf137146e93/maintainability)](https://codeclimate.com/github/rocky-jaiswal/prayer-praise-main-service/maintainability)
+
 ## Local setup requirements
 
 - NodeJS (12 LTS)
