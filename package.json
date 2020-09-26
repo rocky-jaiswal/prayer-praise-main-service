@@ -40,8 +40,9 @@
     "jest": "./node_modules/.bin/jest -i",
     "jest:ci": "CI=true ./node_modules/.bin/jest",
     "jest:watch": "npm run jest -- --watch",
+    "setci": "sed -i '2s/.*/  postgresql://postgresdev:postgresdev@localhost:5432/prayer_praise_app_test/' config/test.yml",
     "test:dc": "docker-compose up --detach && docker-compose exec main-api yarn migrate-latest && docker-compose exec main-api yarn test",
-    "test": "NODE_ENV=test npm run migrate-latest && NODE_ENV=test npm run jest:ci",
+    "test": "yarn setci && NODE_ENV=test npm run migrate-latest && NODE_ENV=test npm run jest:ci",
     "lint": "eslint 'lib/**/*'",
     "prettier": "prettier --write 'lib/**/*'",
     "sha": "git rev-parse HEAD > sha.txt"
