@@ -62,5 +62,5 @@ jobs:
       - run: "ssh rockyj@praywithus.site 'rm -rf /home/rockyj/app/api/build/*'"
       - run: 'tar cvf build.tar config db lib Dockerfile harden.sh index.js knexfile.js package.json server.js index.js yarn.lock'
       - run: 'scp -r /home/circleci/project/build.tar rockyj@praywithus.site:/home/rockyj/app/api/build/'
-      - run: "ssh rockyj@praywithus.site 'tar xvf /home/rockyj/app/api/build/build.tar'"
+      - run: "ssh rockyj@praywithus.site 'tar xvf /home/rockyj/app/api/build/build.tar --directory /home/rockyj/app/api/build'"
       - run: "ssh rockyj@praywithus.site '/home/rockyj/app/restart-service.sh api'"
