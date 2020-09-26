@@ -61,6 +61,6 @@ jobs:
           command: ssh-keyscan -H praywithus.site >> ~/.ssh/known_hosts
       - run: "ssh rockyj@praywithus.site 'rm -rf /home/rockyj/app/api/build/*'"
       - run: "ssh rockyj@praywithus.site 'ls -l /home/rockyj/app/api/build/'"
-      - run: "scp -r . rockyj@praywithus.site 'ls -l /home/rockyj/app/api/build/'"
+      - run: 'scp -r . rockyj@praywithus.site /home/rockyj/app/api/build/'
       - run: "ssh rockyj@praywithus.site 'ls -l /home/rockyj/app/api/build/'"
       - run: "ssh rockyj@praywithus.site 'rm -rf /home/rockyj/app/restart-service.sh api'"
