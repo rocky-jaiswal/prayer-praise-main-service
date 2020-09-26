@@ -39,6 +39,8 @@ jobs:
       - run: yarn lint
       - run: yarn test
   deploy:
+    docker:
+      - image: circleci/node:12
     steps:
       - run: yarn sha
       - run: 'rm -rf .git'
