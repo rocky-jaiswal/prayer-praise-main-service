@@ -37,4 +37,7 @@ jobs:
           key: v1-deps-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
+      - add_ssh_keys: # add private SSH key from CircleCI account based on fingerprint.
+          fingerprints:
+            - '56:38:e4:ad:76:a5:4b:fe:b3:c5:5d:ab:a9:57:55:2e'
       - run: "ssh rockyj@praywithus.site 'cd /home/rockyj/app && ls -l'"
