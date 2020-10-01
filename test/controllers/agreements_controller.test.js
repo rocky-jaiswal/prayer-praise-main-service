@@ -33,7 +33,7 @@ describe('agreements controller', () => {
 
       const message = {
         message_type: 'PRAISE',
-        message_text: 'Test 2',
+        message_text: 'Test 225',
         shared_status: 'SHARED_WITH_EVERYONE',
         user_id: admin.id
       }
@@ -42,7 +42,9 @@ describe('agreements controller', () => {
       const response = await configuredServer.inject(options(id))
       expect(response.statusCode).toBe(200)
 
-      const messageAfter = await db('messages').select().first()
+      const messageAfter = await db('messages')
+        .where({ message_text: 'Test 225' })
+        .first()
       expect(messageAfter.agreements).toBe(1)
     })
   })
