@@ -124,7 +124,7 @@ describe('messages controller', () => {
 
       const options = {
         method: 'get',
-        url: `/messages`
+        url: '/messages'
       }
 
       const response = await configuredServer.inject(options)
@@ -154,7 +154,7 @@ describe('messages controller', () => {
 
       const options = {
         method: 'get',
-        url: `/messages`,
+        url: '/messages',
         headers: { Authorization: token.generate(user1.id) }
       }
 
@@ -491,7 +491,7 @@ describe('messages controller', () => {
 
       const options = {
         method: 'get',
-        url: `/messages`,
+        url: '/messages',
         headers: { Authorization: token.generate(user1.id) }
       }
 

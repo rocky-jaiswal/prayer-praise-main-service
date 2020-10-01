@@ -38,7 +38,7 @@
     "rollback": "./node_modules/.bin/knex migrate:rollback",
     "seed-data": "./node_modules/.bin/knex seed:run",
     "jest": "./node_modules/.bin/jest -i",
-    "jest:ci": "CI=true ./node_modules/.bin/jest",
+    "jest:ci": "CI=true ./node_modules/.bin/jest --runInBand",
     "jest:watch": "npm run jest -- --watch",
     "setci": "sed -i '2s/^/#/' config/test.yml && sed -i '3s/^.../  /' config/test.yml",
     "test:dc": "docker-compose up --detach && docker-compose exec main-api yarn migrate-latest && docker-compose exec main-api yarn jest",
