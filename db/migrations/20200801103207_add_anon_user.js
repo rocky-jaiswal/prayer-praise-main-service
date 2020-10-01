@@ -5,7 +5,6 @@ exports.up = async function (knex) {
   if (!anon || anon.length === 0) {
     await knex('users').insert({ name: 'ANONYMOUS', role: 'ANONYMOUS_USER' })
   }
-  return
 }
 
 exports.down = async function (knex) {

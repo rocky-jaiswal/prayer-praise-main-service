@@ -41,7 +41,7 @@
     "jest:ci": "CI=true ./node_modules/.bin/jest",
     "jest:watch": "npm run jest -- --watch",
     "setci": "sed -i '2s/^/#/' config/test.yml && sed -i '3s/^.../  /' config/test.yml",
-    "test:dc": "docker-compose up --detach && docker-compose exec main-api yarn migrate-latest && docker-compose exec main-api yarn test",
+    "test:dc": "docker-compose up --detach && docker-compose exec main-api yarn migrate-latest && docker-compose exec main-api yarn jest",
     "test": "yarn setci && NODE_ENV=test npm run migrate-latest && NODE_ENV=test npm run jest:ci",
     "lint": "eslint 'lib/**/*'",
     "prettier": "prettier --write 'lib/**/*'",
