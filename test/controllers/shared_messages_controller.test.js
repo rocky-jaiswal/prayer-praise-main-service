@@ -17,11 +17,11 @@ describe('shared messages controller', () => {
   })
 
   afterEach(async () => {
-    await db('messages').truncate()
+    await db.raw('TRUNCATE TABLE comments, messages CASCADE')
     await db('users').whereNot({ role: 'ANONYMOUS_USER' }).del()
   })
 
-  describe('shared messages', () => {
+  describe('shared messages - index', () => {
     const options = {
       method: 'get',
       url: '/sharedMessages'
@@ -53,6 +53,27 @@ describe('shared messages controller', () => {
       const response = await configuredServer.inject(options)
       expect(response.statusCode).toBe(200)
       expect(response.result.content.length).toBe(0)
+    })
+  })
+
+  describe('shared messages - details', () => {
+    const options = (id) => ({
+      method: 'get',
+      url: `/sharedMessages/${id}`
+    })
+
+    test('anonymous user can see a shared message', async () => {
+      const message = {
+        message_type: 'PRAISE',
+        message_text: 'Test 1',
+        shared_status: 'SHARED_WITH_EVERYONE',
+        user_id: 1
+      }
+      const [msgId] = await db('messages').insert(message).returning('id')
+
+      const response = await configuredServer.inject(options(msgId))
+      expect(response.statusCode).toBe(200)
+      expect(response.result).not.toBeNull()
     })
   })
 })

@@ -2,11 +2,14 @@
 
 const MessagesService = require('../../lib/services/messages_service')
 const db = require('../../lib/repositories/db')
-const usersRepo = require('../../lib/repositories/users_repo')
-const messagesRepo = require('../../lib/repositories/messages_repo')
+const UsersRepo = require('../../lib/repositories/users_repo')
+const MessagesRepo = require('../../lib/repositories/messages_repo')
 
 describe('users service', () => {
-  const messagesService = new MessagesService(messagesRepo, usersRepo)
+  const messagesService = new MessagesService(
+    new MessagesRepo(db),
+    new UsersRepo(db)
+  )
   let user1
   let admin
 
@@ -15,7 +18,7 @@ describe('users service', () => {
   })
 
   afterEach(async () => {
-    await db('messages').truncate()
+    await db.raw('TRUNCATE TABLE comments, messages CASCADE')
     await db('users').whereNot({ role: 'ANONYMOUS_USER' }).del()
   })
 

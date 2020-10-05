@@ -17,7 +17,7 @@ describe('agreements controller', () => {
   })
 
   afterEach(async () => {
-    await db('messages').truncate()
+    await db.raw('TRUNCATE TABLE comments, messages CASCADE')
     await db('users').whereNot({ role: 'ANONYMOUS_USER' }).del()
   })
 

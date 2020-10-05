@@ -1,18 +1,18 @@
 'use strict'
 
-const UsersService = require('../../lib/services/users_service')
 const db = require('../../lib/repositories/db')
-const usersRepo = require('../../lib/repositories/users_repo')
+const UsersService = require('../../lib/services/users_service')
+const UsersRepo = require('../../lib/repositories/users_repo')
 
 describe('users service', () => {
-  const usersService = new UsersService(usersRepo)
+  const usersService = new UsersService(new UsersRepo(db))
 
   afterAll(async () => {
     await db.destroy()
   })
 
   afterEach(async () => {
-    await db('messages').truncate()
+    await db.raw('TRUNCATE TABLE comments, messages CASCADE')
     await db('users').whereNot({ role: 'ANONYMOUS_USER' }).del()
   })
 
