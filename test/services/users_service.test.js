@@ -21,6 +21,14 @@ describe('users service', () => {
     const user1 = await db('users').where({ name: 'test' }).first()
 
     const user = await usersService.findUser(user1.id)
-    expect(user).toEqual(user1)
+    expect(user).toEqual(Object.assign(user1, { admin: false }))
+  })
+
+  test('finding users - admin', async () => {
+    await db('users').insert({ name: 'test', role: 'PRAYER_TEAM' })
+    const user1 = await db('users').where({ name: 'test' }).first()
+
+    const user = await usersService.findUser(user1.id)
+    expect(user).toEqual(Object.assign(user1, { admin: true }))
   })
 })
