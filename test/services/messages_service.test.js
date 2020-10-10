@@ -63,8 +63,8 @@ describe('users service', () => {
     expect(messages.length).toEqual(2)
   })
 
-  test('getMessagesSharedToAll - admin', async () => {
-    const messages = await messagesService.getAllUserMessages(admin.id)
+  test('getAllMessages - admin', async () => {
+    const messages = await messagesService.getAllMessages()
     expect(messages.length).toEqual(3)
   })
 })
