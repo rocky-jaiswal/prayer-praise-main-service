@@ -2,7 +2,7 @@
 
 const serverInit = require('../../server')
 const db = require('../../lib/repositories/db')
-const token = require('../../lib/services/token')
+const tokenService = require('../../lib/services/token_service')
 
 describe('messages controller', () => {
   let configuredServer
@@ -101,7 +101,7 @@ describe('messages controller', () => {
 
       const response = await configuredServer.inject(
         Object.assign(options, {
-          headers: { Authorization: token.generate(user.id) }
+          headers: { Authorization: tokenService.generate(user.id) }
         })
       )
       expect(response.statusCode).toBe(200)
@@ -155,7 +155,7 @@ describe('messages controller', () => {
       const options = {
         method: 'get',
         url: '/messages',
-        headers: { Authorization: token.generate(user1.id) }
+        headers: { Authorization: tokenService.generate(user1.id) }
       }
 
       const response = await configuredServer.inject(options)
@@ -204,7 +204,7 @@ describe('messages controller', () => {
       const options = {
         method: 'get',
         url: `/messages/${dbMessage.id}`,
-        headers: { Authorization: token.generate(user.id) }
+        headers: { Authorization: tokenService.generate(user.id) }
       }
 
       const response = await configuredServer.inject(options)
@@ -231,7 +231,7 @@ describe('messages controller', () => {
       const options = {
         method: 'get',
         url: `/messages/${dbMessage.id}`,
-        headers: { Authorization: token.generate(user2.id) }
+        headers: { Authorization: tokenService.generate(user2.id) }
       }
 
       const response = await configuredServer.inject(options)
@@ -279,7 +279,7 @@ describe('messages controller', () => {
       const options = {
         method: 'put',
         url: `/messages/${dbMessage.id}`,
-        headers: { Authorization: token.generate(user.id) },
+        headers: { Authorization: tokenService.generate(user.id) },
         payload: {
           message: {
             messageText: 'Test 2',
@@ -312,7 +312,7 @@ describe('messages controller', () => {
       const options = {
         method: 'put',
         url: `/messages/${dbMessage.id}`,
-        headers: { Authorization: token.generate(user2.id) },
+        headers: { Authorization: tokenService.generate(user2.id) },
         payload: {
           message: {
             messageText: 'Test 2',
@@ -366,7 +366,7 @@ describe('messages controller', () => {
       const options = {
         method: 'delete',
         url: `/messages/${dbMessage.id}`,
-        headers: { Authorization: token.generate(user.id) }
+        headers: { Authorization: tokenService.generate(user.id) }
       }
 
       const response = await configuredServer.inject(options)
@@ -395,7 +395,7 @@ describe('messages controller', () => {
       const options = {
         method: 'delete',
         url: `/messages/${dbMessage.id}`,
-        headers: { Authorization: token.generate(user2.id) }
+        headers: { Authorization: tokenService.generate(user2.id) }
       }
 
       const response = await configuredServer.inject(options)

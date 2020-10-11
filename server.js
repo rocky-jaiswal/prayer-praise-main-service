@@ -7,7 +7,7 @@ const HapiAuthJWT = require('hapi-auth-jwt2')
 const HapiPino = require('hapi-pino')
 
 const routes = require('./lib/routes/')
-const token = require('./lib/services/token')
+const tokenService = require('./lib/services/token_service')
 
 // Create a server with a host and port
 const server = new Hapi.Server({
@@ -26,7 +26,7 @@ const serverInit = async () => {
   // Auth setup
   server.auth.strategy('jwt', 'jwt', {
     key: config.get('token.secret'),
-    validate: token.validate,
+    validate: tokenService.validate,
     verifyOptions: { algorithms: ['HS256'] }
   })
   server.auth.default('jwt')

@@ -2,7 +2,7 @@
 
 const serverInit = require('../../server')
 const db = require('../../lib/repositories/db')
-const token = require('../../lib/services/token')
+const tokenService = require('../../lib/services/token_service')
 
 describe('admin controller', () => {
   let configuredServer
@@ -47,7 +47,7 @@ describe('admin controller', () => {
       const options = {
         method: 'get',
         url: '/admin/messages',
-        headers: { Authorization: token.generate(user1.id) }
+        headers: { Authorization: tokenService.generate(user1.id) }
       }
 
       const response = await configuredServer.inject(options)
@@ -80,7 +80,7 @@ describe('admin controller', () => {
       const options = {
         method: 'get',
         url: '/admin/messages',
-        headers: { Authorization: token.generate(admin1.id) }
+        headers: { Authorization: tokenService.generate(admin1.id) }
       }
 
       const response = await configuredServer.inject(options)
@@ -126,7 +126,7 @@ describe('admin controller', () => {
       const options = {
         method: 'get',
         url: '/admin/comments',
-        headers: { Authorization: token.generate(admin1.id) }
+        headers: { Authorization: tokenService.generate(admin1.id) }
       }
 
       const response = await configuredServer.inject(options)
@@ -156,7 +156,7 @@ describe('admin controller', () => {
       const options = {
         method: 'put',
         url: `/admin/messages/${dbMessage.id}`,
-        headers: { Authorization: token.generate(user1.id) },
+        headers: { Authorization: tokenService.generate(user1.id) },
         payload: {
           message: {
             messageText: 'Test 2',
@@ -191,7 +191,7 @@ describe('admin controller', () => {
       const options = {
         method: 'delete',
         url: `/admin/messages/${dbMessage.id}`,
-        headers: { Authorization: token.generate(user1.id) }
+        headers: { Authorization: tokenService.generate(user1.id) }
       }
 
       const response = await configuredServer.inject(options)
@@ -223,7 +223,7 @@ describe('admin controller', () => {
       const options = {
         method: 'delete',
         url: `/admin/comments/${cid1}`,
-        headers: { Authorization: token.generate(admin1.id) }
+        headers: { Authorization: tokenService.generate(admin1.id) }
       }
 
       const response = await configuredServer.inject(options)
