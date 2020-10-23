@@ -7,5 +7,6 @@ describe('utils', () => {
     expect(utils.normalizeUsername('ANONYMOUS')).toEqual('Anonymous')
     expect(utils.normalizeUsername('foo@example.com')).toEqual('Foo')
     expect(utils.normalizeUsername('Foo.bar@example.com')).toEqual('Foo Bar')
+    expect(utils.normalizeUsername('foo bar')).toEqual('Foo Bar')
   })
 })
