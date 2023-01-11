@@ -16,7 +16,7 @@
     "hapi-pino": "^8.0.1",
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "^8.5.0",
-    "knex": "^0.21.0",
+    "knex": "^2.4.0",
     "lodash": "^4.17.0",
     "pg": "^8.3.0",
     "serialize-javascript": "^4.0.0"
